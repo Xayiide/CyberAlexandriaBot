@@ -19,7 +19,7 @@ def getLinks(filename):
     count = 1
     fn = 'Resources/' + filename
     
-    if filename != 'Books':
+    if filename != 'Books': # El fichero Books es el unico que tiene un formato diferente
         with open(fn, 'r') as f:
             l = f.readline().strip("\n")
             while l:
