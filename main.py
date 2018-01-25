@@ -104,14 +104,14 @@ def Main():
     updater = Updater(token = token)
     dp = updater.dispatcher
 
-    dp.add_handler(CommandHandler('Pages', sendPages))
-    dp.add_handler(CommandHandler('RSS', sendRSSFeeds))
-    dp.add_handler(CommandHandler('Samples', sendSamples))
-    dp.add_handler(CommandHandler('Forums', sendForums))
-    dp.add_handler(CommandHandler('Tools', sendProjects))
-    dp.add_handler(CommandHandler('Lists', sendSiteLists))
-    dp.add_handler(CommandHandler('Twitter', sendTwitterLists))
-    dp.add_handler(CommandHandler('Books', sendBooks))
+    dp.add_handler(CommandHandler('pages', sendPages))
+    dp.add_handler(CommandHandler('rss', sendRSSFeeds))
+    dp.add_handler(CommandHandler('samples', sendSamples))
+    dp.add_handler(CommandHandler('forums', sendForums))
+    dp.add_handler(CommandHandler('tools', sendProjects))
+    dp.add_handler(CommandHandler('lists', sendSiteLists))
+    dp.add_handler(CommandHandler('twitter', sendTwitterLists))
+    dp.add_handler(CommandHandler('books', sendBooks))
 
 
 
