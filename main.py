@@ -32,6 +32,19 @@ def echo(bot, update):
     msg.echo(update)
 
 
+def start(bot, update):
+    """ Envia el mensaje de bienvenida. """
+
+    s = update.message
+    bot.send_message(chat_id=s.chat_id, text=msg.infoStartBot)
+
+
+def help(bot, update):
+    """ Envia un mensaje de ayuda al usuario. """
+
+    s = update.message
+    bot.send_message(chat_id=s.chat_id, text=msg.infoHelpBot)
+
 
 def sendPages(bot, update):
     """ Envia un mensaje con la lista de links. """
@@ -112,7 +125,8 @@ def Main():
     dp.add_handler(CommandHandler('lists', sendSiteLists))
     dp.add_handler(CommandHandler('twitter', sendTwitterLists))
     dp.add_handler(CommandHandler('books', sendBooks))
-
+    dp.add_handler(CommandHandler('start', start))
+    dp.add_handler(CommandHandler('help', help))
 
 
     updater.start_polling()

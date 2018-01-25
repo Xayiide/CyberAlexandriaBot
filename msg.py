@@ -17,7 +17,27 @@ infoInit = "Se ha iniciado el bot."
 #                  /start                       #
 #################################################
 
-infoStartBot = """This bot will provide you with resources."""
+infoStartBot = """This bot will provide you with resources.
+Type /help to receive the available commands."""
+
+
+
+
+#################################################
+#                   /help                       #
+#################################################
+
+infoHelpBot = """This bot sends lists of links or documents. Commands:\n
+  /books - Buy useful books
+  /forums - Popular forums
+  /samples - Download malware samples
+  /pages - Informative pages
+  /rss - RSS feeds
+  /tools - Projects and tools
+  /lists - Moar lists
+  /twitter - Twitter lists
+
+"""
 
 
 
