@@ -7,7 +7,8 @@
 #   problemas)
 # 4. Añadir la opcion de seleccionar lenguaje (ingles, castellano o ambos) y enviar
 #   solo los pdfs en ese idioma (si es que vamos a enviar PDFs)
-
+# 5. Añadir los putos subredditsy todos los links que quedan
+# 6. ¿Nueva categoria rollo hackgames (e.g, hackthissite)?
 
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
