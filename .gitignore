@@ -8,3 +8,6 @@ Resources/PDFs/*
 
 # __pycache__ should not be pushed I guess
 __pycache__
+
+# Dont push the admins list
+admins.txt
