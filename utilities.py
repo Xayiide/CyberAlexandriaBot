@@ -31,7 +31,6 @@ def getLinks(filename):
                 n = f.readline().strip("\n")
                 l = f.readline().strip("\n")
 
-    links = links + "\n\n/menu"
     return links
 
 

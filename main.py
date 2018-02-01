@@ -24,28 +24,6 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 logger = logging.getLogger(__name__)
 
 
-"""
-def menu(bot, chat_id):
-    # Creates the menu. 
-    keyboard = [
-        [InlineKeyboardButton("Pages",    callback_data='Pages'),
-         InlineKeyboardButton("Books",    callback_data='Books')],
-        [InlineKeyboardButton("Forums",   callback_data='Forums'),
-         InlineKeyboardButton("Samples",  callback_data='MalwareSamples')],
-        [InlineKeyboardButton("Tools",    callback_data='ProjectsAndTools'),
-         InlineKeyboardButton("RSSFeeds", callback_data='RSSFeeds')],
-        [InlineKeyboardButton("Sites",    callback_data='SiteLists'),
-         InlineKeyboardButton("Twitter",  callback_data='TwitterLists')]
-    ]
-
-
-    reply_markup = InlineKeyboardMarkup(keyboard)
-    bot.send_message(chat_id=chat_id, reply_)
-   # update.message.reply_text("What are you looking for?", reply_markup=reply_markup)
-"""
-
-
-
 
 def echo(bot, update):
     """ Manda mensajes de informacion por la pantalla del bot."""
@@ -58,8 +36,7 @@ def start(bot, update):
     """ Envia el mensaje de bienvenida. """
 
     s = update.message
-    bot.send_message(chat_id=s.chat_id, text=msg.infoStartBot)
-    butt.menu(bot, s.chat_id)
+    bot.send_message(chat_id=s.chat_id, text=msg.infoStartBot, reply_markup=butt.menu())
 
 
 
@@ -67,72 +44,7 @@ def help(bot, update):
     """ Envia un mensaje de ayuda al usuario. """
 
     s = update.message
-    bot.send_message(chat_id=s.chat_id, text=msg.infoHelpBot)
-
-
-def sendPages(bot, update):
-    """ Envia un mensaje con la lista de links. """
-
-    s = update.message
-    echo(bot, update)
-    bot.send_message(chat_id=s.chat_id, text=utils.getLinks('Pages'))
-
-
-def sendRSSFeeds(bot, update):
-    """ Envia un mensaje con la lista de links a Feeds RSS. """
-
-    s = update.message
-    echo(bot, update)
-    bot.send_message(chat_id=s.chat_id, text=utils.getLinks('RSSFeeds'))
-
-
-def sendSamples(bot, update):
-    """ Envia una lista de sitios donde descargar muestras 
-        de malware. """
-    
-    s = update.message
-    echo(bot, update)
-    bot.send_message(chat_id=s.chat_id, text=utils.getLinks('MalwareSamples'))
-
-
-def sendForums(bot, update):
-    """ Envia una lista de foros. """
-
-    s = update.message
-    echo(bot, update)
-    bot.send_message(chat_id=s.chat_id, text=utils.getLinks('Forums'))
-
-
-def sendProjects(bot, update):
-    """ Envia una lista de proyectos y herramientas. """
-
-    s = update.message
-    echo(bot, update)
-    bot.send_message(chat_id=s.chat_id, text=utils.getLinks('ProjectsAndTools'))
-
-
-def sendSiteLists(bot, update):
-    """ Envia una lista de sitios que contienen mas sitios (?). """
-    
-    s = update.message
-    echo(bot, update)
-    bot.send_message(chat_id=s.chat_id, text=utils.getLinks('SiteLists'))
-
-
-def sendTwitterLists(bot, update):
-    """ Envia una lista de listas de twitter. """
-
-    s = update.message
-    echo(bot, update)
-    bot.send_message(chat_id=s.chat_id, text=utils.getLinks('TwitterLists'))
-
-def sendBooks(bot, update):
-    """ Envia una lista de libros buenos. """
-
-    s = update.message
-    echo(bot, update)
-    bot.send_message(chat_id=s.chat_id, text=utils.getLinks('Books'))
-
+    bot.send_message(chat_id=s.chat_id, text=msg.infoHelpBot, reply_markup=butt.menu())
 
 
 
@@ -158,11 +70,6 @@ def buttons_handler(bot, update):
 
 
 
-"""
-    bot.edit_message_text(text=utils.getLinks(petition),
-                          chat_id=query.message.chat_id,
-                          message_id=query.message.message_id)
-"""
 
 
 def unknown(bot, update):
@@ -171,7 +78,7 @@ def unknown(bot, update):
     s = update.message
     
     echo(bot, update)
-    bot.send_message(chat_id=s.chat_id, text=msg.infoUnkown)
+    bot.send_message(chat_id=s.chat_id, text=msg.infoUnkown, reply_markup=butt.menu())
     print(msg.unknown)
 
 
@@ -181,7 +88,7 @@ def information(bot, update):
 
     s = update.message
     echo(bot, update)
-    bot.send_message(chat_id=s.chat_id, text=msg.infoInformation)
+    bot.send_message(chat_id=s.chat_id, text=msg.infoInformation, reply_markup=butt.menu())
 
 
 def reportDown(bot, update):
@@ -199,19 +106,10 @@ def Main():
 
 
     dp.add_handler(MessageHandler(Filters.text, information))
-    dp.add_handler(CommandHandler('pages', sendPages))
-    dp.add_handler(CommandHandler('rss', sendRSSFeeds))
-    dp.add_handler(CommandHandler('samples', sendSamples))
-    dp.add_handler(CommandHandler('forums', sendForums))
-    dp.add_handler(CommandHandler('tools', sendProjects))
-    dp.add_handler(CommandHandler('lists', sendSiteLists))
-    dp.add_handler(CommandHandler('twitter', sendTwitterLists))
-    dp.add_handler(CommandHandler('books', sendBooks))
     dp.add_handler(CommandHandler('start', start))
     dp.add_handler(CommandHandler('help', help))
 
 
-#    dp.add_handler(CommandHandler('menu', menu))
     dp.add_handler(CallbackQueryHandler(buttons_handler))
 
     dp.add_handler(MessageHandler(Filters.command, unknown))

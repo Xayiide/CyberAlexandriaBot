@@ -5,7 +5,7 @@ from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMa
 
 
 
-def menu(bot, chat_id):
+def menu():
     """ Creates the menu. """
     
     keyboard = [
@@ -20,8 +20,8 @@ def menu(bot, chat_id):
     ]
 
     reply_markup = InlineKeyboardMarkup(keyboard)
-    bot.send_message(chat_id=chat_id, text="What are you looking for?" ,reply_markup=reply_markup)
 
+    return reply_markup
 
 
 
@@ -31,15 +31,13 @@ def parse(bot, update, chat, msg, petition, user):
     
     toLinks = ['Pages', 'Books', 'Forums', 'MalwareSamples', 'ProjectsAndTools',
                'RSSFeeds', 'SiteLists', 'TwitterLists']
-    
-    chat_id = update.message.chat_id
 
     if petition in toLinks:
         bot.editMessageText(text=utils.getLinks(petition),
                             chat_id = chat,
                             message_id = msg,
                             parse_mode = telegram.ParseMode.MARKDOWN,
-                            disable_web_page_preview=True)
+                            disable_web_page_preview=True,
+                            reply_markup = menu())
 
-    menu(bot, chat_id)        
 

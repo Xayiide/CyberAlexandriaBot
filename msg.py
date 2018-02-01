@@ -27,17 +27,7 @@ Type /help to receive the available commands."""
 #                   /help                       #
 #################################################
 
-infoHelpBot = """This bot sends lists of links or documents. Commands:\n
-  /books - Buy useful books
-  /forums - Popular forums
-  /samples - Download malware samples
-  /pages - Informative pages
-  /rss - RSS feeds
-  /tools - Projects and tools
-  /lists - Moar lists
-  /twitter - Twitter lists
-
-"""
+infoHelpBot = """This bot sends lists of links or documents"""
 
 
 
@@ -56,6 +46,38 @@ def echo(update):
         print("\n\nMessage from chat: " + str(chat_id) + " from: " + name + " aka: @" + nick + "\n\t> " + str(msg))
     else:
         print("\n\nMessage from chat: " + str(chat_id) + " from: " + name + " aka: NONICK" + "\n\t> " + str(msg))
+
+
+
+
+#################################################
+#                    Unknown                    #
+#################################################
+
+infoUnkown = "I'm sorry, I don't recognize that command. Try /help"
+
+unknown = "Comando no reconocido"
+
+
+
+
+#################################################
+#                   Information                 #
+#################################################
+
+infoInformation = """ Try any of this commands:
+  /help - Display help about this bot
+"""
+
+
+
+#################################################
+#               InformLinkDown                  #
+#################################################
+
+def report(link):
+    return "The following link has been reported down: " + link
+
 
 
 
