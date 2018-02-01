@@ -1,4 +1,4 @@
-
+import msg
 
 def readToken():
     with open('token.txt', 'r') as f:
@@ -8,11 +8,6 @@ def hasNick(update):
     if update.message.from_user.username != None:
         return True
     return False
-
-
-
-
-
 
 def getLinks(filename):
     links = ""
@@ -35,4 +30,21 @@ def getLinks(filename):
                 count += 1
                 n = f.readline().strip("\n")
                 l = f.readline().strip("\n")
+
+    links = links + "\n\n/menu"
     return links
+
+
+def informLinkDown(bot, link):
+    admins = []
+    with open('admins.txt', 'r') as f:
+        a = f.readline().strip("\n")
+        while a:
+            admins.append(a)
+            a = f.readline().strip("\n")
+    t = msg.report(link)
+    for i in admins:
+        bot.send_message(chat_id=admins[i], text=t)
+
+
+

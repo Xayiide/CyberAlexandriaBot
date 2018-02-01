@@ -15,6 +15,8 @@ from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 import logging
 import utilities as utils
 import msg
+import buttons as butt  # Yeah, as butt.
+
 
 token = utils.readToken()
 
@@ -22,9 +24,9 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 logger = logging.getLogger(__name__)
 
 
-
-def menu(bot, update):
-    """ Creates the menu. """
+"""
+def menu(bot, chat_id):
+    # Creates the menu. 
     keyboard = [
         [InlineKeyboardButton("Pages",    callback_data='Pages'),
          InlineKeyboardButton("Books",    callback_data='Books')],
@@ -38,8 +40,9 @@ def menu(bot, update):
 
 
     reply_markup = InlineKeyboardMarkup(keyboard)
-    update.message.reply_text("What are you looking for?", reply_markup=reply_markup)
-
+    bot.send_message(chat_id=chat_id, reply_)
+   # update.message.reply_text("What are you looking for?", reply_markup=reply_markup)
+"""
 
 
 
@@ -56,6 +59,8 @@ def start(bot, update):
 
     s = update.message
     bot.send_message(chat_id=s.chat_id, text=msg.infoStartBot)
+    butt.menu(bot, s.chat_id)
+
 
 
 def help(bot, update):
@@ -144,10 +149,12 @@ def buttons_handler(bot, update):
     message  = query.message.message_id
     petition = query.data
     chat_id  = query['message']['chat']['id']
-    user     = query['message']['chat']['firts_name']
+    user     = query['message']['chat']['first_name']
     
-    print("\tUsuario: " + user + " [" + chat_id + "]")
-    print("\tOpcion: " + petition)
+    print("\tUsuario: " + str(user) + " [" + str(chat_id) + "]")
+    print("\tOpcion: " + str(petition))
+
+    butt.parse(bot, update, chat_id, message, petition, user)
 
 
 
@@ -204,7 +211,7 @@ def Main():
     dp.add_handler(CommandHandler('help', help))
 
 
-    dp.add_handler(CommandHandler('menu', menu))
+#    dp.add_handler(CommandHandler('menu', menu))
     dp.add_handler(CallbackQueryHandler(buttons_handler))
 
     dp.add_handler(MessageHandler(Filters.command, unknown))
