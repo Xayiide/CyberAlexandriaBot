@@ -11,3 +11,6 @@ __pycache__
 
 # Dont push the admins list
 admins.txt
+
+# Anything being edited (.swp)
+*.swp*
