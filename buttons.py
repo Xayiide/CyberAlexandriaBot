@@ -16,7 +16,9 @@ def menu():
         [InlineKeyboardButton("Tools", callback_data='ProjectsAndTools'),
          InlineKeyboardButton("RSSFeeds", callback_data='RSSFeeds')],
         [InlineKeyboardButton("Sites", callback_data='SiteLists'),
-         InlineKeyboardButton("Twitter", callback_data='TwitterLists')]
+         InlineKeyboardButton("Twitter", callback_data='TwitterLists')],
+        [InlineKeyboardButton("Subreddits", callback_data='Subreddits'),
+         InlineKeyboardButton("TG Channels", callback_data='Channels')]
     ]
 
     reply_markup = InlineKeyboardMarkup(keyboard)
@@ -30,13 +32,12 @@ def menu():
 def parse(bot, update, chat, msg, petition, user):
     
     toLinks = ['Pages', 'Books', 'Forums', 'MalwareSamples', 'ProjectsAndTools',
-               'RSSFeeds', 'SiteLists', 'TwitterLists']
+               'RSSFeeds', 'SiteLists', 'TwitterLists', 'Subreddits', 'Channels']
 
     if petition in toLinks:
         bot.editMessageText(text=utils.getLinks(petition),
                             chat_id = chat,
                             message_id = msg,
-                            parse_mode = telegram.ParseMode.MARKDOWN,
                             disable_web_page_preview=True,
                             reply_markup = menu())
 

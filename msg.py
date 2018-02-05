@@ -17,8 +17,9 @@ infoInit = "Se ha iniciado el bot."
 #                  /start                       #
 #################################################
 
-infoStartBot = """This bot will provide you with resources.
-Type /help to receive the available commands."""
+infoStartBot = """This bot will provide you with resources. 
+It's pretty simple, just tap any of the buttons below to get \
+a list of links on the topic."""
 
 
 
@@ -27,7 +28,16 @@ Type /help to receive the available commands."""
 #                   /help                       #
 #################################################
 
-infoHelpBot = """This bot sends lists of links or documents"""
+infoHelp = """Supported commands:
+  /start -> Start the bot
+  /help  -> Display this message
+  /report -> Report a misbehaving link
+  /contribute -> Support us by sending a page or
+    subreddit you find useful!
+    
+"""
+
+
 
 
 
@@ -43,9 +53,9 @@ def echo(update):
 
     if utils.hasNick(update):
         nick = update.message.from_user.username
-        print("\n\nMessage from chat: " + str(chat_id) + " from: " + name + " aka: @" + nick + "\n\t> " + str(msg))
+        print("\n\nMessage from chat: " + str(chat_id) + " [" + name + "] @" + nick + "\n\t> " + str(msg))
     else:
-        print("\n\nMessage from chat: " + str(chat_id) + " from: " + name + " aka: NONICK" + "\n\t> " + str(msg))
+        print("\n\nMessage from chat: " + str(chat_id) + " [" + name + "] NONICK" + "\n\t> " + str(msg))
 
 
 
@@ -65,8 +75,7 @@ unknown = "Comando no reconocido"
 #                   Information                 #
 #################################################
 
-infoInformation = """ Try any of this commands:
-  /help - Display help about this bot
+infoInformation = """ Just tap an option!
 """
 
 
