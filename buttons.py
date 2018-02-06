@@ -1,6 +1,17 @@
 import utilities as utils
 import telegram
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove, ForceReply
+from telegram import (InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove,
+                      ForceReply)
+
+
+
+def links():
+    """ Creates links to report a down link or to submit a new one. """
+    
+    reply_keyboard = [['Link down', 'New link'],
+                      ['Done']]
+
+    return ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
 
 
 

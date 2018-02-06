@@ -9,8 +9,9 @@
 # 6. ¿Nueva categoria rollo hackgames (e.g, hackthissite)?
 
 import telegram
-from telegram.ext import Updater, CommandHandler, MessageHandler, CallbackQueryHandler, Filters
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup
+from telegram.ext import (Updater, CommandHandler, MessageHandler, CallbackQueryHandler, Filters,
+                          ConversationHandler, RegexHandler)
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove
 import logging
 import utilities as utils
 import msg
@@ -21,7 +22,6 @@ token = utils.readToken()
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 logger = logging.getLogger(__name__)
-
 
 
 def start(bot, update):
@@ -75,8 +75,42 @@ def unknown(bot, update):
     print(msg.unknown)
 
 
-def reportDown(bot, update):
-    pass
+
+
+
+########################
+
+
+CHOOSING, TYPING_REPLY = range(2)
+
+
+def contribute(bot, update):
+    update.message.reply_text(msg.whatFor, reply_markup=butt.links())
+
+    return CHOOSING
+
+def link_down(bot, update, user_data):
+    update.message.reply_text(msg.sendLink)
+    # TODO: Llamar a funcion linkdown(link) de utils
+    return TYPING_REPLY
+
+def new_link(bot, update, user_data):
+    update.message.reply_text(msg.sendLink)
+    # TODO: llamar a funcion newlink(link) de utils
+    return TYPING_REPLY
+
+def received_information(bot, update, user_data):
+    update.message.reply_text(msg.reportSent)
+                              
+    return CHOOSING
+
+def done(bot, update, user_data):
+
+    update.message.reply_text(msg.reportDone, reply_markup=ReplyKeyboardRemove())
+    return ConversationHandler.END
+
+
+
 
 
 
@@ -89,11 +123,46 @@ def Main():
     dp = updater.dispatcher
 
 
+    conv_handler = ConversationHandler(
+        entry_points = [CommandHandler('contribute', contribute)],
+
+        states = {
+            CHOOSING: [RegexHandler('^Link down$',
+                                    link_down,
+                                    pass_user_data=True),
+                       RegexHandler('^New link$',
+                                    new_link,
+                                    pass_user_data=True),
+                       ],
+
+            TYPING_REPLY: [MessageHandler(Filters.text,
+                                          received_information,
+                                          pass_user_data=True),
+                          ],
+        },
+
+        fallbacks=[RegexHandler('^Done$', done, pass_user_data=True)]
+    )
+
+
+
+
+
+
     dp.add_handler(CommandHandler('start', start))
     dp.add_handler(CommandHandler('help', help))
 
+
+
+
+
     dp.add_handler(CallbackQueryHandler(buttons_handler))
 
+    
+
+
+
+    dp.add_handler(conv_handler)
     dp.add_handler(MessageHandler(Filters.command, unknown))
 
     

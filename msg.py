@@ -31,10 +31,8 @@ a list of links on the topic."""
 infoHelp = """Supported commands:
   /start -> Start the bot
   /help  -> Display this message
-  /report -> Report a misbehaving link
-  /contribute -> Support us by sending a page or
-    subreddit you find useful!
-    
+  /contribute -> Support us by sending a link \
+you found useful or reporting a down link.
 """
 
 
@@ -81,12 +79,14 @@ infoInformation = """ Just tap an option!
 
 
 #################################################
-#               InformLinkDown                  #
+#               Contribute                      #
 #################################################
 
-def report(link):
+def reportDown(link):
     return "The following link has been reported down: " + link
 
-
-
-
+whatFor = "You want to report a down link or to provide a new one?"
+reportSent = "The contribution has been sent. Thanks for your support!\
+\nAnything else you'd like to do?"
+sendLink = "Nice. Send me the link please!"
+reportDone = "Okay, that's it!"
