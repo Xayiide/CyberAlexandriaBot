@@ -83,7 +83,7 @@ def unknown(bot, update):
 
 CHOOSING, TYPING_REPLY = range(2)
 
-
+# TODO: Añadir echos
 def contribute(bot, update):
     update.message.reply_text(msg.whatFor, reply_markup=butt.links())
 
