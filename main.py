@@ -57,7 +57,7 @@ def buttons_handler(bot, update):
     chat_id  = query['message']['chat']['id']
     user     = query['message']['chat']['first_name']
     
-    print("\tOpcion: " + str(petition))
+    msg.option(petition)
 
     butt.parse(bot, update, chat_id, message, petition, user)
 
@@ -83,30 +83,41 @@ def unknown(bot, update):
 
 CHOOSING, TYPING_REPLY = range(2)
 
+option = -1
+
 # TODO: Añadir echos
 def contribute(bot, update):
     update.message.reply_text(msg.whatFor, reply_markup=butt.links())
+    msg.echo(update)
+
 
     return CHOOSING
 
 def link_down(bot, update, user_data):
     update.message.reply_text(msg.sendLink)
-    # TODO: Llamar a funcion linkdown(link) de utils
+    msg.option("Link down")
+    global l_option
+    l_option = "down"
     return TYPING_REPLY
+
 
 def new_link(bot, update, user_data):
     update.message.reply_text(msg.sendLink)
-    # TODO: llamar a funcion newlink(link) de utils
+    msg.option("New Link")
+    global l_option
+    l_option = "new"
     return TYPING_REPLY
 
 def received_information(bot, update, user_data):
     update.message.reply_text(msg.reportSent)
-                              
+    global l_option
+    utils.parseLink(bot, update.message.text, l_option)
     return CHOOSING
 
 def done(bot, update, user_data):
 
     update.message.reply_text(msg.reportDone, reply_markup=ReplyKeyboardRemove())
+    msg.option("Done")
     return ConversationHandler.END
 
 

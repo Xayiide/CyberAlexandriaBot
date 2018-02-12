@@ -33,17 +33,27 @@ def getLinks(filename):
 
     return links
 
-
-def informLinkDown(bot, link):
+def readAdmins():
     admins = []
     with open('admins.txt', 'r') as f:
-        a = f.readline().strip("\n")
-        while a:
-            admins.append(a)
-            a = f.readline().strip("\n")
-    t = msg.report(link)
-    for i in admins:
-        bot.send_message(chat_id=admins[i], text=t)
+        Id = f.readline().strip('\n')
+        while Id:
+            admins.append(Id)
+            Id = f.readline().strip('\n')
+    return admins
 
+
+def isAdmin(user_id):
+    admins = readAdmins()
+    if user_id in admins:
+        return True
+    return False
+
+def parseLink(bot, link, option):
+    for i in readAdmins():
+        if option == "down":
+            bot.send_message(chat_id=i, text=msg.reportDown(link))
+        elif option == "new":
+            bot.send_message(chat_id=i, text=msg.newLink(link))
 
 

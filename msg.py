@@ -56,6 +56,11 @@ def echo(update):
         print("\n\nMessage from chat: " + str(chat_id) + " [" + name + "] NONICK" + "\n\t> " + str(msg))
 
 
+def option(petition):
+    print("\tOpcion: " + str(petition))
+
+
+
 
 
 #################################################
@@ -84,6 +89,10 @@ infoInformation = """ Just tap an option!
 
 def reportDown(link):
     return "The following link has been reported down: " + link
+
+def newlink(link):
+    return "The following link has been aported: " + link
+
 
 whatFor = "You want to report a down link or to provide a new one?"
 reportSent = "The contribution has been sent. Thanks for your support!\
