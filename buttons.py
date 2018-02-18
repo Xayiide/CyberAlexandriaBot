@@ -3,7 +3,7 @@ import telegram
 from telegram import (InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove,
                       ForceReply)
 
-
+# TODO: Create button menu for feedback choices
 
 def links():
     """ Creates links to report a down link or to submit a new one. """
