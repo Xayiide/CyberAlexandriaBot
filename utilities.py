@@ -45,15 +45,22 @@ def readAdmins():
 
 def isAdmin(user_id):
     admins = readAdmins()
-    if user_id in admins:
+    print(admins, user_id)
+    if str(user_id) in admins:
         return True
     return False
 
-def parseLink(bot, link, option):
+def parseLink(bot, text, option):
     for i in readAdmins():
         if option == "down":
-            bot.send_message(chat_id=i, text=msg.reportDown(link))
+            bot.send_message(chat_id=i, text=msg.reportDown(text))
         elif option == "new":
-            bot.send_message(chat_id=i, text=msg.newLink(link))
+            bot.send_message(chat_id=i, text=msg.newLink(text))
 
+def addLink(link, category):
+    #TODO: Complete
+    pass
 
+def removeLink(link, category):
+    #TODO: Complete
+    pass

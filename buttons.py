@@ -4,6 +4,14 @@ from telegram import (InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardM
                       ForceReply)
 
 # TODO: Create button menu for feedback choices
+toLinks = ['Pages', 'Books', 'Forums', 'MalwareSamples', 'ProjectsAndTools',
+           'RSSFeeds', 'SiteLists', 'TwitterLists', 'Subreddits', 'Channels',
+           'HandsOn']
+
+
+
+
+
 
 def links():
     """ Creates links to report a down link or to submit a new one. """
@@ -20,16 +28,17 @@ def menu():
     """ Creates the menu. """
     
     keyboard = [
-        [InlineKeyboardButton("Pages", callback_data='Pages'),
-         InlineKeyboardButton("Books", callback_data='Books')],
-        [InlineKeyboardButton("Forums", callback_data='Forums'),
-         InlineKeyboardButton("Samples", callback_data='MalwareSamples')],
-        [InlineKeyboardButton("Tools", callback_data='ProjectsAndTools'),
-         InlineKeyboardButton("RSSFeeds", callback_data='RSSFeeds')],
-        [InlineKeyboardButton("Sites", callback_data='SiteLists'),
-         InlineKeyboardButton("Twitter", callback_data='TwitterLists')],
-        [InlineKeyboardButton("Subreddits", callback_data='Subreddits'),
-         InlineKeyboardButton("TG Channels", callback_data='Channels')]
+        [InlineKeyboardButton("Pages",       callback_data='Pages'),
+         InlineKeyboardButton("Books",       callback_data='Books')],
+        [InlineKeyboardButton("Forums",      callback_data='Forums'),
+         InlineKeyboardButton("Samples",     callback_data='MalwareSamples')],
+        [InlineKeyboardButton("Tools",       callback_data='ProjectsAndTools'),
+         InlineKeyboardButton("RSSFeeds",    callback_data='RSSFeeds')],
+        [InlineKeyboardButton("Sites",       callback_data='SiteLists'),
+         InlineKeyboardButton("Twitter",     callback_data='TwitterLists')],
+        [InlineKeyboardButton("Subreddits",  callback_data='Subreddits'),
+         InlineKeyboardButton("TG Channels", callback_data='Channels')],
+        [InlineKeyboardButton("Hands On",    callback_data='HandsOn')]
     ]
 
     reply_markup = InlineKeyboardMarkup(keyboard)
@@ -41,10 +50,6 @@ def menu():
 
 
 def parse(bot, update, chat, msg, petition, user):
-    
-    toLinks = ['Pages', 'Books', 'Forums', 'MalwareSamples', 'ProjectsAndTools',
-               'RSSFeeds', 'SiteLists', 'TwitterLists', 'Subreddits', 'Channels']
-
     if petition in toLinks:
         bot.editMessageText(text=utils.getLinks(petition),
                             chat_id = chat,

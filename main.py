@@ -42,6 +42,15 @@ def help(bot, update):
     bot.send_message(chat_id=s.chat_id, text=msg.infoHelp)
 
 
+def files(bot, update):
+    
+    s = update.message
+    msg.echo(update)
+    bot.send_message(chat_id=s.chat_id, text=msg.filesText())
+
+
+
+
 
 ###############
 #   Botones   #
@@ -87,13 +96,18 @@ option = -1
 
 # TODO: Añadir echos
 def contribute(bot, update):
-    update.message.reply_text(msg.whatFor, reply_markup=butt.links())
-    msg.echo(update)
 
+    s = update.message
+    if not utils.isAdmin(s.from_user.id):
+        update.message.reply_text(msg.reportNotAdmin)
+        msg.echo(update)
+        
+    else:
+        update.message.reply_text(msg.whatFor, reply_markup=butt.links())
+        msg.echo(update)
+        return CHOOSING
 
-    return CHOOSING
-
-def link_down(bot, update, user_data):
+def link_down(bot, update):
     update.message.reply_text(msg.sendLink)
     msg.option("Link down")
     global l_option
@@ -101,27 +115,24 @@ def link_down(bot, update, user_data):
     return TYPING_REPLY
 
 
-def new_link(bot, update, user_data):
+def new_link(bot, update):
     update.message.reply_text(msg.sendLink)
     msg.option("New Link")
     global l_option
     l_option = "new"
     return TYPING_REPLY
 
-def received_information(bot, update, user_data):
+def received_information(bot, update):
     update.message.reply_text(msg.reportSent)
     global l_option
     utils.parseLink(bot, update.message.text, l_option)
     return CHOOSING
 
-def done(bot, update, user_data):
+def done(bot, update):
 
     update.message.reply_text(msg.reportDone, reply_markup=ReplyKeyboardRemove())
     msg.option("Done")
     return ConversationHandler.END
-
-
-
 
 
 
@@ -139,20 +150,17 @@ def Main():
 
         states = {
             CHOOSING: [RegexHandler('^Link down$',
-                                    link_down,
-                                    pass_user_data=True),
+                                    link_down,),
                        RegexHandler('^New link$',
-                                    new_link,
-                                    pass_user_data=True),
+                                    new_link),
                        ],
 
             TYPING_REPLY: [MessageHandler(Filters.text,
-                                          received_information,
-                                          pass_user_data=True),
+                                          received_information),
                           ],
         },
 
-        fallbacks=[RegexHandler('^Done$', done, pass_user_data=True)]
+        fallbacks=[RegexHandler('^Done$', done)]
     )
 
 
@@ -162,7 +170,7 @@ def Main():
 
     dp.add_handler(CommandHandler('start', start))
     dp.add_handler(CommandHandler('help', help))
-
+    dp.add_handler(CommandHandler('files', files))
 
 
 
