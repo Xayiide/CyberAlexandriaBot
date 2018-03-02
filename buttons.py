@@ -3,7 +3,6 @@ import telegram
 from telegram import (InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup, ReplyKeyboardRemove,
                       ForceReply)
 
-# TODO: Create button menu for feedback choices
 toLinks = ['Pages', 'Books', 'Forums', 'MalwareSamples', 'ProjectsAndTools',
            'RSSFeeds', 'SiteLists', 'TwitterLists', 'Subreddits', 'Channels',
            'HandsOn']

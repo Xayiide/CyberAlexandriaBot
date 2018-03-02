@@ -45,22 +45,50 @@ def readAdmins():
 
 def isAdmin(user_id):
     admins = readAdmins()
-    print(admins, user_id)
     if str(user_id) in admins:
         return True
     return False
 
 def parseLink(bot, text, option):
-    for i in readAdmins():
-        if option == "down":
-            bot.send_message(chat_id=i, text=msg.reportDown(text))
-        elif option == "new":
-            bot.send_message(chat_id=i, text=msg.newLink(text))
+
+    if option == "down":
+        rep = msg.reportDown(text)
+        if rep != None:
+            for i in readAdmins():
+                bot.send_message(chat_id=i, text=rep)
+        else:
+            print("\t-- Bad input: " + "[" + text + "]")
+
+    elif option == "new":
+        new = msg.newLink(text)
+        if new != None:
+            for i in readAdmins():
+                bot.send_message(chat_id=i, text=new)
+        else:
+            print("\t-- Bad input: " + "["+ text + "]")
+
+
 
 def addLink(link, category):
-    #TODO: Complete
-    pass
+    try:
+        fn = 'Resources/' + category
+        with open(fn, 'a') as f:
+            f.write(link + '\n')
+    except:
+        print(msg.wrongData)
+
 
 def removeLink(link, category):
-    #TODO: Complete
-    pass
+    try:
+        fn = 'Resources/' + category
+        old = []
+        with open(fn, 'r') as f:
+            old = f.readlines()
+
+        new = [i for i in old if i.strip('\n') != link]
+
+        with open(fn, 'w') as f:
+            for i in new:
+                f.write(i)
+    except:
+        print(msg.wrongData)

@@ -30,13 +30,18 @@ To report useful webs or down links, talk to @QueenNai."""
 #################################################
 
 infoHelp = """Supported commands:
-  /start -> Start the bot
+  /start -> Start the bot and show the menu
+  /help  -> Display this message
+"""
+
+infoAdmins = """Supported admin commands:
+  /start -> Start the bot and show the menu
   /help  -> Display this message
   /contribute -> Support us by sending a link \
 you found useful or reporting a down link.
+  /files -> List filenames
+    
 """
-
-
 
 
 
@@ -81,7 +86,7 @@ unknown = "Comando no reconocido"
 
 infoInformation = """ Just tap an option!
 """
-
+notAnAdmin = "Sorry, only admins can do this."
 
 
 #################################################
@@ -89,21 +94,29 @@ infoInformation = """ Just tap an option!
 #################################################
 
 def reportDown(text):
-    link = text.split(" ")[0]
-    cat  = text.split(" ")[1]
-    utils.removeLink(link, cat)
-    return "The link '" + link + "' [" + cat + "] has been reported down."
+    try:
+        link = text.split(" ")[0]
+        cat  = text.split(" ")[1]
+        utils.removeLink(link, cat)
+        return "The link '" + link + "' [" + cat + "] has been reported down."
+    except:
+        return None
 
 def newLink(text):
-    link = text.split(" ")[0]
-    cat  = text.split(" ")[1]
-    utils.addLink(link, cat)
-    return "The link '" + link + "' [" + cat + "] has been reported as useful." 
+    try:
+        link = text.split(" ")[0]
+        cat  = text.split(" ")[1]
+        utils.addLink(link, cat)
+        return "The link '" + link + "' [" + cat + "] has been reported as useful." 
+    except:
+        return None
+
+
 
 whatFor = "You want to report a down link or to provide a new one?"
 sendLink = "Nice. Send me the link and the category please!"
 reportNotAdmin = "Sorry, but you're not an admin. Message @QueenNai for help."
-reportSent = "The contribution has been sent. Thanks for your support!\
+reportSent = "Thanks for your support!\
 \nAnything else you'd like to do?"
 reportDone = "Okay, that's it!"
 
@@ -120,3 +133,5 @@ def filesText():
         aux += i
         aux += " - "
     return aux
+
+wrongData = "Wrong file or link."

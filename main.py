@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-
 
 # TODO:
-# 2. Añadir la opcion de enviar un feedback o de informar de un link que ya no sirve 
 # 3. Añadir la opcion de enviar los PDFs (o links para descargar esos PDFs para evitar
 #   problemas)
 # 4. Añadir la opcion de seleccionar lenguaje (ingles, castellano o ambos) y enviar
 #   solo los pdfs en ese idioma (si es que vamos a enviar PDFs)
-# 6. ¿Nueva categoria rollo hackgames (e.g, hackthissite)?
 
 import telegram
 from telegram.ext import (Updater, CommandHandler, MessageHandler, CallbackQueryHandler, Filters,
@@ -37,17 +35,22 @@ def help(bot, update):
     """ Envia el mensaje de ayuda. """
     
     s = update.message
-
     msg.echo(update)
-    bot.send_message(chat_id=s.chat_id, text=msg.infoHelp)
+    if utils.isAdmin(s.from_user.id):
+        bot.send_message(chat_id=s.chat_id, text=msg.infoAdmins)
+    else:
+        bot.send_message(chat_id=s.chat_id, text=msg.infoHelp)
+
 
 
 def files(bot, update):
     
     s = update.message
     msg.echo(update)
-    bot.send_message(chat_id=s.chat_id, text=msg.filesText())
-
+    if utils.isAdmin(s.from_user.id):
+        bot.send_message(chat_id=s.chat_id, text=msg.filesText())
+    else:
+        bot.send_message(chat_id=s.chat_id, text=msg.notAnAdmin)
 
 
 
@@ -94,7 +97,6 @@ CHOOSING, TYPING_REPLY = range(2)
 
 option = -1
 
-# TODO: Añadir echos
 def contribute(bot, update):
 
     s = update.message
