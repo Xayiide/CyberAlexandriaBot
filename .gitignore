@@ -5,6 +5,7 @@ token.txt
 # I don't want to push this yet
 Resources/PDFs
 Resources/PDFs/*
+Resources.zip
 
 # __pycache__ should not be pushed I guess
 __pycache__
