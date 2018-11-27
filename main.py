@@ -1,11 +1,5 @@
 # -*- coding: utf-8 -*-
 
-# TODO:
-# 3. Añadir la opcion de enviar los PDFs (o links para descargar esos PDFs para evitar
-#   problemas)
-# 4. Añadir la opcion de seleccionar lenguaje (ingles, castellano o ambos) y enviar
-#   solo los pdfs en ese idioma (si es que vamos a enviar PDFs)
-
 import telegram
 from telegram.ext import (Updater, CommandHandler, MessageHandler, CallbackQueryHandler, Filters,
                           ConversationHandler, RegexHandler)
